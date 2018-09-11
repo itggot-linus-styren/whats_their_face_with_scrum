@@ -19,8 +19,8 @@ defmodule Pluggy.GroupController do
                 current_user = User.get(session_user)
                 send_resp(conn, 200, render("groups/index",
                           groups: Group.all_with_owner(current_user),
-                          user: current_user),
-                          subscriptions: Usergroup.all_with_user(current_user))
+                          user: current_user,
+                          subscriptions: Usergroup.all_with_user(current_user)))
         end
     end
 

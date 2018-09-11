@@ -16,8 +16,9 @@ defmodule Pluggy.Group do
         ).rows |> to_struct_list
 	end
 
+    def get(id) when is_binary(id), do: get(atoi(id))
 	def get(id) do
-		Postgrex.query!(DB, "SELECT * FROM groups WHERE id = $1 LIMIT 1", [atoi(id)],
+		Postgrex.query!(DB, "SELECT * FROM groups WHERE id = $1 LIMIT 1", [id],
             pool: DBConnection.Poolboy
         ).rows |> to_struct
     end

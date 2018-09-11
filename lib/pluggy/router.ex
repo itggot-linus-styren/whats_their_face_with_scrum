@@ -3,6 +3,7 @@ defmodule Pluggy.Router do
 
   alias Pluggy.FruitController
   alias Pluggy.GroupController
+  alias Pluggy.UserGroupController
   alias Pluggy.UserController
 
   plug Plug.Static, at: "/", from: :pluggy
@@ -37,7 +38,7 @@ defmodule Pluggy.Router do
   post "/fruits/:id/destroy", do: FruitController.destroy(conn, id)
 
   get "/groups",           do: GroupController.index(conn)
-  get "/groups/subscribe", do: GroupController.subscribe(conn)
+  get "/groups/subscribe", do: UserGroupController.subscribe(conn)
   get "/groups/new",       do: GroupController.new(conn)
   get "/groups/:id",       do: GroupController.show(conn, id)
   get "/groups/:id/edit",  do: GroupController.edit(conn, id)
