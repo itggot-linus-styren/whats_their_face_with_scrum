@@ -39,7 +39,7 @@
   </thead>
   <tbody>
 <%= for usergroup <- subscriptions do %>
-		<%= group = Group.get(usergroup.group_id) %>
+		<% group = Group.get(usergroup.group_id) %>
     <tr>
       <td><%= group.name %></td>
       <td><%= group.status %></td>
