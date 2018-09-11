@@ -22,7 +22,7 @@ defmodule Pluggy.Group do
         :ok
     end
 
-    def update(%{"groups[id]" => id, "groups[name]" => name, "groups[status]" => status, "groups[owner_id]" => owner_id}) do
+    def update(id, %{"groups[name]" => name, "groups[status]" => status, "groups[owner_id]" => owner_id}) do
         Postgrex.query!(DB, "UPDATE groups SET name = $1, status = $2, owner_id = $3 WHERE id = $4", [name, atoi(status), atoi(owner_id), atoi(id)],
             pool: DBConnection.Poolboy)
         :ok
