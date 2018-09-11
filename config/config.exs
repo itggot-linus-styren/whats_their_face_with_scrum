@@ -8,8 +8,8 @@ config :pluggy,
     pool_size: 20, 
     host: "localhost", # or address
     database: "testdb",
-    username: "root",
-    password: "itg123"
+    username: "testuser",
+    password: "test"
   ]
 
 # This configuration is loaded before any dependency and is restricted
