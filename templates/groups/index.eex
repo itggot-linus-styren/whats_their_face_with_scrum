@@ -1,5 +1,6 @@
 <h1>Group.index (/groups)</h1>
 
+<h2>Owned groups</h2>
 <table>
   <thead>
     <tr>
@@ -19,7 +20,7 @@
         <span>
 					<form action="/groups/<%= group.id %>/destroy" method="post">
 						<button type="submit">Destroy Group</button>
-					</form>	
+					</form>
 				</span>
       </td>
     </tr>
@@ -27,6 +28,28 @@
   </tbody>
 </table>
 
-<a href="/groups/new">Add new group</a>
+<h2>Group subscriptions</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for group <- subscriptions do %>
+    <tr>
+      <td><%= group.name %></td>
+      <td><%= group.status %></td>
+      <td>
+        <span><a href="/groups/<%= group.id %>">Show</a></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
 
+<a href="/groups/new">Add new group</a>
+<a href="/groups/subscribe">Subscribe to group</a>
 
