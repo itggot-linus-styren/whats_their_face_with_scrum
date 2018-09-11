@@ -1,7 +1,7 @@
 <h1>Groups.edit (/groups/<%= group.id %>/edit)</h1>
 
-<form action="/groups/" method="post">
-	<input name="groups[owner_id]" type="hidden" id="id" value="<%= owner_id %>">
+<form action="/groups/<%= group.id %>/edit" method="post">
+	<input name="groups[owner_id]" type="hidden" id="id" value="<%= group.owner_id %>">
 	<div>
 		<label for="name">What is the group called?</label>
 		<input type="text" id="name" name="groups[name]" value="<%= group.name %>"/>

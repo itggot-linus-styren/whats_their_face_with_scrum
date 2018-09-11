@@ -14,8 +14,8 @@
       <td><%= group.name %></td>
       <td><%= group.status %></td>
       <td>
-        <span><a href="/groups/show/<%= group.id %>">Show</a></span>
-        <span><a href="/groups/edit/<%= group.id %>">Edit</a></span>
+        <span><a href="/groups/<%= group.id %>">Show</a></span>
+        <span><a href="/groups/<%= group.id %>/edit">Edit</a></span>
         <span>
 					<form action="/groups/<%= group.id %>/destroy" method="post">
 						<button type="submit">Destroy Group</button>

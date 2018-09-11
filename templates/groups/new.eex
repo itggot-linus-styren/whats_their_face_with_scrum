@@ -1,4 +1,4 @@
-<h1>Groups.new (/groups/new)</h1>
+<h1>Groups.new (/groups/)</h1>
 
 <form action="/groups/" method="post">
 	<input name="groups[owner_id]" type="hidden" id="id" value="<%= owner_id %>">
