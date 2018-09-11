@@ -1,5 +1,5 @@
 # WhatsTheirFace V2
-test by qvst
+test by bob
 100 ganger bättre
 
 Ännu bättre idag
