@@ -9,7 +9,6 @@ defmodule Pluggy.GroupController do
 
 
     def index(conn) do
-
         #get user if logged in
         session_user = conn.private.plug_session["user_id"]
         case session_user do
@@ -17,7 +16,7 @@ defmodule Pluggy.GroupController do
                 redirect(conn, "/")
             _   ->
                 current_user = User.get(session_user)
-                send_resp(conn, 200, render("groups/index", fruits: Group.all(current_user), user: current_user))
+                send_resp(conn, 200, render("groups/index", groups: Group.all(current_user), user: current_user))
         end
     end
 
@@ -28,17 +27,17 @@ defmodule Pluggy.GroupController do
     def edit(conn, id),     do: send_resp(conn, 200, render("groups/edit", group: Group.get(id)))
 
     def create(conn, params) do
-        Fruit.create(params)
+        Group.create(params)
         redirect(conn, "/groups")
     end
 
     def update(conn, id, params) do
-        Fruit.update(id, params)
+        Group.update(id, params)
         redirect(conn, "/groups")
     end
 
     def destroy(conn, id) do
-        Fruit.delete(id)
+        Group.delete(id)
         redirect(conn, "/groups")
     end
 

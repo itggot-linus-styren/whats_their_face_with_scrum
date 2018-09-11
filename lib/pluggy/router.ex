@@ -2,6 +2,7 @@ defmodule Pluggy.Router do
   use Plug.Router
 
   alias Pluggy.FruitController
+  alias Pluggy.GroupController
   alias Pluggy.UserController
 
   plug Plug.Static, at: "/", from: :pluggy
@@ -34,6 +35,15 @@ defmodule Pluggy.Router do
 
   # should be delete /fruits/:id, but put/patch/delete are not supported without hidden inputs
   post "/fruits/:id/destroy", do: FruitController.destroy(conn, id)
+
+  get "/groups",           do: GroupController.index(conn)
+  get "/groups/new",       do: GroupController.new(conn)
+  get "/groups/:id",       do: GroupController.show(conn, id)
+  get "/groups/:id/edit",  do: GroupController.edit(conn, id)
+  
+  post "/groups",          do: GroupController.create(conn, conn.body_params)
+  post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
+  post "/groups/:id/destroy", do: GroupController.destroy(conn, id)
 
 
   post "/users/login",     do: UserController.login(conn, conn.body_params)

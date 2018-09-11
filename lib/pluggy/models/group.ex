@@ -5,7 +5,7 @@ defmodule Pluggy.Group do
     alias Pluggy.Group
     
     def all(owner) do
-		Postgrex.query!(DB, "SELECT * FROM groups WHERE owner_id = $1", [atoi(owner.id)],
+		Postgrex.query!(DB, "SELECT * FROM groups WHERE owner_id = $1", [owner.id],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
 	end
@@ -16,13 +16,13 @@ defmodule Pluggy.Group do
         ).rows |> to_struct
     end
 
-    def create(%{"groups[name]" => name, "groups[status]" => status, "groups[owner_id]" => owner_id}) do
+    def create(%{"groups" => %{"name" => name, "owner_id" => owner_id, "status" => status}}) do
 		Postgrex.query!(DB, "INSERT INTO groups (name, status, owner_id) VALUES ($1, $2, $3)", [name, atoi(status), atoi(owner_id)],
             pool: DBConnection.Poolboy)
         :ok
     end
 
-    def update(id, %{"groups[name]" => name, "groups[status]" => status, "groups[owner_id]" => owner_id}) do
+    def update(id, %{"groups" => %{"name" => name, "owner_id" => owner_id, "status" => status}}) do
         Postgrex.query!(DB, "UPDATE groups SET name = $1, status = $2, owner_id = $3 WHERE id = $4", [name, atoi(status), atoi(owner_id), atoi(id)],
             pool: DBConnection.Poolboy)
         :ok
