@@ -1,5 +1,5 @@
 # WhatsTheirFace V2
-test by qvst
+test by qvst linus
 100 ganger bättre
 
 Ännu bättre idag
