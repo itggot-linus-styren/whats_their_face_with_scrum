@@ -4,7 +4,7 @@ defmodule Pluggy.Person do
 
 	alias Pluggy.Person
 
-	def all do
+	def all(current_user) do
 		Postgrex.query!(DB, "SELECT * FROM people", [], [pool: DBConnection.Poolboy]).rows
 		|> to_struct_list
 	end
