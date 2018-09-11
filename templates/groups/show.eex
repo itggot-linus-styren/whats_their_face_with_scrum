@@ -1,0 +1,13 @@
+<h1>Group.show (/groups/<%= group.id %>)</h1>
+
+<ul>
+    <li>
+        <strong>Name:</strong>
+        <%= group.name %>
+    </li>
+    <li>
+        <strong>Status:</strong>
+        <%= group.status %>
+    </li>
+</ul>
+

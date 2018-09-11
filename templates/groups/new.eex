@@ -1,0 +1,18 @@
+<h1>Groups.new (/groups/)</h1>
+
+<form action="/groups/" method="post">
+	<input name="groups[owner_id]" type="hidden" id="id" value="<%= owner_id %>">
+	<div>
+		<label for="name">What is the group called?</label>
+		<input type="text" id="name" name="groups[name]" />
+	</div>
+	<div>
+		<label for="status">Choose group status:</label>
+		<select id="status" name="groups[status]">
+			<option value="0">Active</option>
+			<option value="1">Inactive</option>
+			<option value="2">Archived</option>
+		</select>
+	</div>
+	<button type=submit>Create Group</button>
+</form>
