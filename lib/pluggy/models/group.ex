@@ -4,7 +4,13 @@ defmodule Pluggy.Group do
 
     alias Pluggy.Group
     
-    def all(owner) do
+    def all() do
+		Postgrex.query!(DB, "SELECT * FROM groups", [],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+	end
+
+    def all_with_owner(owner) do
 		Postgrex.query!(DB, "SELECT * FROM groups WHERE owner_id = $1", [owner.id],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list

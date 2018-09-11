@@ -29,7 +29,6 @@ defmodule Pluggy.GroupController do
     def new(conn),          do: send_resp(conn, 200, render("groups/new", owner_id: conn.private.plug_session["user_id"]))
     def show(conn, id),     do: send_resp(conn, 200, render("groups/show", group: Group.get(id)))
     def edit(conn, id),     do: send_resp(conn, 200, render("groups/edit", group: Group.get(id)))
-    def subscribe(conn, id),do: send_resp(conn, 200, render("groups/subscribe", groups: Group.all(), user_id: conn.private.plug_session["user_id"]))
 
     def create(conn, params) do
         Group.create(params)
