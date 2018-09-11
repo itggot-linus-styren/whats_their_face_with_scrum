@@ -1,6 +1,7 @@
 defmodule Pluggy.Router do
   use Plug.Router
 
+  alias Pluggy.PersonController
   alias Pluggy.FruitController
   alias Pluggy.GroupController
   alias Pluggy.UserController
@@ -44,6 +45,9 @@ defmodule Pluggy.Router do
   post "/groups",          do: GroupController.create(conn, conn.body_params)
   post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
   post "/groups/:id/destroy", do: GroupController.destroy(conn, id)
+
+  get "/groups/:id/addpeople", do: PersonController.add(conn)
+  get "/groups/:id/showpeople", do: PersonController.show(conn)
   
   get "/register", do: UserController.register(conn)
   post "/register", do: UserController.register(conn, conn.body_params)

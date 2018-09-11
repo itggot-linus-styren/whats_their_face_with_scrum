@@ -1,27 +1,28 @@
 defmodule Pluggy.PersonController do
   
     require IEx
-  
+
+    alias Pluggy.Person
     alias Pluggy.Group
     alias Pluggy.User
     import Pluggy.Template, only: [render: 2]
     import Plug.Conn, only: [send_resp: 3]
   
   
-    def index(conn) do
+    def show(conn) do
   
       #get user if logged in
       session_user = conn.private.plug_session["user_id"]
       current_user = case session_user do
-        nil -> nil
-        _   -> User.get(session_user)
+        nil -> 
+            redirect(conn, "/")
+        _   -> 
+            current_user = User.get(session_user)
+            send_resp(conn, 200, render("person/show", persons: Person.all(current_user), user: current_user))
       end
-  
-      send_resp(conn, 200, render("fruits/index", fruits: Fruit.all(), user: current_user))
     end
   
     def new(conn),          do: send_resp(conn, 200, render("fruits/new", []))
-    def show(conn, id),     do: send_resp(conn, 200, render("fruits/show", fruit: Fruit.get(id)))
     def edit(conn, id),     do: send_resp(conn, 200, render("fruits/edit", fruit: Fruit.get(id)))
     
     def create(conn, params) do
@@ -29,6 +30,10 @@ defmodule Pluggy.PersonController do
       #move uploaded file from tmp-folder (might want to first check that a file was uploaded)
       File.rename(params["file"].path, "priv/static/uploads/#{params["file"].filename}")
       redirect(conn, "/fruits")
+    end
+
+    def add(conn) do
+        
     end
   
     def update(conn, id, params) do

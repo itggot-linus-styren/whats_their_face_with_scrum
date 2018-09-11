@@ -1,0 +1,7 @@
+<ul>
+  <%= for person <- persons do %>
+    <li>
+		<%= person.id %> - <%= person.name %>
+	</li>
+  <% end %>
+</ul>

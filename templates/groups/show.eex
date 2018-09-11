@@ -11,3 +11,5 @@
     </li>
 </ul>
 
+<a href="/groups/<%= group.id %>/addpeople/">Add people to group</a>
+<a href="/groups/<%= group.id %>/showpeople/">Show all people of the group</a>
