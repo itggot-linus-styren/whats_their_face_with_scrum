@@ -1,4 +1,4 @@
-<h3> Register here</3>
+<h3> Register here</h3>
 <form method="POST" action="/register">
     <input type="text" name="username" placeholder="Username">
     <input type="password" name="password1" placeholder="Password">
