@@ -2,6 +2,8 @@
 
 100 ganger bättre
 
+Ännu bättre idag
+
 Efterso Servy innehåller en del svårfixadem buggar byggde jag en skelettapplikation baserat på [Plug](https://hex.pm/packages/plug) och [Cowboy](https://github.com/ninenines/cowboy). Plug & Cowboy är (som nämndes i de senare Servy-filmerna)  de ramverk som i stort sett alla Elixir-webbramverk är baserade på. 
 
 Pluggy följer samma generella upplägg som Servy, men med andra komponenter.
