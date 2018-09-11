@@ -2,15 +2,15 @@
 
 <form action="/groups/subscribe" method="get">
 	<div>
-		<label for="name">What is the group called?</label>
-		<input type="text" id="name" name="groups[name]" />
+		<label for="name">Search for group</label>
+		<input type="text" id="name" name="search" />
 	</div>
 	<button type=submit>Search Group</button>
 </form>
 
 
 <form action="/groups/subscribe" method="post">
-	<input name="subscription[user_id]" type="hidden" id="id" value="<%= user.id %>">
+	<input name="subscription[user_id]" type="hidden" id="id" value="<%= user_id %>">
 	<div>
 		<label for="group_id">Choose group:</label>
 		<select id="group_id" name="subscription[group_id]">

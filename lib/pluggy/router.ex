@@ -37,6 +37,7 @@ defmodule Pluggy.Router do
   post "/fruits/:id/destroy", do: FruitController.destroy(conn, id)
 
   get "/groups",           do: GroupController.index(conn)
+  get "/groups/subscribe", do: GroupController.subscribe(conn)
   get "/groups/new",       do: GroupController.new(conn)
   get "/groups/:id",       do: GroupController.show(conn, id)
   get "/groups/:id/edit",  do: GroupController.edit(conn, id)
@@ -44,6 +45,9 @@ defmodule Pluggy.Router do
   post "/groups",          do: GroupController.create(conn, conn.body_params)
   post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
   post "/groups/:id/destroy", do: GroupController.destroy(conn, id)
+
+  post "/groups/subscribe", do: GroupController.subscribe(conn, conn.body_params)
+  post "/groups/unsubscribe/:id", do: GroupController.unsubscribe(conn, id)
   
   get "/register", do: UserController.register(conn)
   post "/register", do: UserController.register(conn, conn.body_params)

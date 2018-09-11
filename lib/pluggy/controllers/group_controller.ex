@@ -4,6 +4,7 @@ defmodule Pluggy.GroupController do
 
     alias Pluggy.Group
     alias Pluggy.User
+    alias Pluggy.Usergroup
     import Pluggy.Template, only: [render: 2]
     import Plug.Conn, only: [send_resp: 3]
 
@@ -16,7 +17,10 @@ defmodule Pluggy.GroupController do
                 redirect(conn, "/")
             _   ->
                 current_user = User.get(session_user)
-                send_resp(conn, 200, render("groups/index", groups: Group.all(current_user), user: current_user))
+                send_resp(conn, 200, render("groups/index",
+                          groups: Group.all_with_owner(current_user),
+                          user: current_user),
+                          subscriptions: Usergroup.all_with_user(current_user))
         end
     end
 
@@ -25,6 +29,7 @@ defmodule Pluggy.GroupController do
     def new(conn),          do: send_resp(conn, 200, render("groups/new", owner_id: conn.private.plug_session["user_id"]))
     def show(conn, id),     do: send_resp(conn, 200, render("groups/show", group: Group.get(id)))
     def edit(conn, id),     do: send_resp(conn, 200, render("groups/edit", group: Group.get(id)))
+    def subscribe(conn, id),do: send_resp(conn, 200, render("groups/subscribe", groups: Group.all(), user_id: conn.private.plug_session["user_id"]))
 
     def create(conn, params) do
         Group.create(params)
@@ -38,6 +43,16 @@ defmodule Pluggy.GroupController do
 
     def destroy(conn, id) do
         Group.delete(id)
+        redirect(conn, "/groups")
+    end
+
+    def subscribe(conn, params) do
+        Usergroup.create(params)
+        redirect(conn, "/groups")
+    end
+
+    def unsubscribe(conn, id) do
+        Usergroup.delete(id)
         redirect(conn, "/groups")
     end
 

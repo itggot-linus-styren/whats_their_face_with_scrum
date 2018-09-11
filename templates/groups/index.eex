@@ -38,12 +38,18 @@
     </tr>
   </thead>
   <tbody>
-<%= for group <- subscriptions do %>
+<%= for usergroup <- subscriptions do %>
+		<%= group = Group.get(usergroup.group_id) %>
     <tr>
       <td><%= group.name %></td>
       <td><%= group.status %></td>
       <td>
         <span><a href="/groups/<%= group.id %>">Show</a></span>
+				<span>
+					<form action="/groups/unsubscribe/<%= usergroup.id %>" method="post">
+						<button type="submit">Unsubscribe</button>
+					</form>
+				</span>
       </td>
     </tr>
 <% end %>
