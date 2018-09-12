@@ -4,7 +4,7 @@ defmodule Pluggy.Router do
   alias Pluggy.GroupController
   alias Pluggy.UserGroupController
   alias Pluggy.UserController
-  alias Pluggy.BeforeDoPlug
+  #alias Pluggy.BeforeDoPlug
 
   plug Plug.Static, at: "/", from: :pluggy
   plug(:put_secret_key_base)
@@ -20,7 +20,7 @@ defmodule Pluggy.Router do
   )
 
   plug(:fetch_session)
-  plug(BeforeDoPlug, [])
+  #plug(BeforeDoPlug, [])
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
   plug(:match)
   plug(:dispatch)

@@ -42,8 +42,11 @@ defmodule Pluggy.Usergroup do
     
     defp atoi(str), do: String.to_integer(str)
 
-    defp empty?([[]]), do: true
-    defp empty?(_), do: false
+    defp empty?([[]]), do: false
+    defp empty?(stupid) do
+        IO.inspect stupid
+        true
+    end
 
 	def to_struct([[id, user_id, group_id]]) do
 		%Usergroup{id: id, user_id: user_id, group_id: group_id}
