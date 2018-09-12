@@ -40,6 +40,11 @@ defmodule Pluggy.PersonController do
         Person.pic(person_id, params)
         redirect(conn, "/groups")
     end
+
+    def editname(conn, person_id, params) do
+        Person.name(person_id, params)
+        redirect(conn, "/groups")
+    end
   
     def new(conn),          do: send_resp(conn, 200, render("fruits/new", []))
     

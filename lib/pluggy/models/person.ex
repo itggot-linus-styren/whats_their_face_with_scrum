@@ -28,6 +28,10 @@ defmodule Pluggy.Person do
         Postgrex.query!(DB, "UPDATE people SET image_path = $1 WHERE id = $2", [image_path, atoi(person_id)], [pool: DBConnection.Poolboy])
     end
 
+    def name(person_id, params) do
+        Postgrex.query!(DB, "UPDATE people SET name = $1 WHERE id = $2", [params["person_name"], atoi(person_id)], [pool: DBConnection.Poolboy])
+    end
+
 	def update(id, params) do
 		name = params["name"]
 		tastiness = String.to_integer(params["tastiness"])
