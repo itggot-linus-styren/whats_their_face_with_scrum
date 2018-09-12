@@ -25,7 +25,7 @@ defmodule Pluggy.Router do
   plug(:dispatch)
 
   get "/groups",           do: GroupController.index(conn)
-  get "/groups/subscribe", do: UserGroupController.subscribe(conn)
+  get "/groups/subscribe", do: UserGroupController.subscribe(conn, conn.query_params)
   get "/groups/new",       do: GroupController.new(conn)
   get "/groups/:id",       do: GroupController.show(conn, id)
   get "/groups/:id/edit",  do: GroupController.edit(conn, id)

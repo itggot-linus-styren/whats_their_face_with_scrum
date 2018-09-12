@@ -8,6 +8,12 @@ defmodule Pluggy.Group do
 		Postgrex.query!(DB, "SELECT * FROM groups", [],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
+    end
+    
+    def all_like(search) do
+		Postgrex.query!(DB, "SELECT * FROM groups WHERE name LIKE $1", ["%" <> search <> "%"],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
 	end
 
     def all_with_owner(owner) do
@@ -17,7 +23,7 @@ defmodule Pluggy.Group do
     end
     
     def all_without_usergroup(owner) do
-        Postgrex.query!(DB, "SELECT * FROM groups WHERE id NOT IN (SELECT * FROM user_groups WHERE user_id = $1)", [owner.id],
+        Postgrex.query!(DB, "SELECT * FROM groups WHERE id NOT IN (SELECT group_id FROM user_groups WHERE user_id = $1)", [owner.id],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
     end

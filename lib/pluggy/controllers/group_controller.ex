@@ -43,7 +43,7 @@ defmodule Pluggy.GroupController do
     end
 
     def destroy(conn, id) do
-        Usergroup.delete(group_id)
+        Usergroup.delete(id)
         Group.delete(id)
         redirect(conn, "/groups")
     end
