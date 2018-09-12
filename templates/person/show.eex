@@ -1,6 +1,9 @@
+<a href="/groups">Go back to groups</a>
+
 <ul>
   <%= for person <- persons do %>
     <li>
+        <img src="#{<%= person.image_path %>}">
 		<%= person.id %> - <%= person.name %>
 	</li>
   <% end %>

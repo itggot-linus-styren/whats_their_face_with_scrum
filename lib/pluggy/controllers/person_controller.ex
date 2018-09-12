@@ -9,16 +9,17 @@ defmodule Pluggy.PersonController do
     import Plug.Conn, only: [send_resp: 3]
   
   
-    def show(conn) do
+    def show(conn, id) do
   
       #get user if logged in
-      session_user = conn.private.plug_session["user_id"]
-      current_user = case session_user do
+      #session_user = conn.private.plug_session["user_id"]
+      room_id = id
+      case room_id do
         nil -> 
             redirect(conn, "/")
         _   -> 
-            current_user = User.get(session_user)
-            send_resp(conn, 200, render("person/show", persons: Person.all(current_user), user: current_user))
+            #current_user = User.get(session_user)
+            send_resp(conn, 200, render("person/show", persons: Person.all(room_id)))
       end
     end
   

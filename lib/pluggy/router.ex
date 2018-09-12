@@ -46,8 +46,8 @@ defmodule Pluggy.Router do
   post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
   post "/groups/:id/destroy", do: GroupController.destroy(conn, id)
 
-  get "/groups/:id/addpeople", do: PersonController.add(conn)
-  get "/groups/:id/showpeople", do: PersonController.show(conn)
+  get "/groups/:id/addpeople", do: PersonController.add(conn, id)
+  get "/groups/:id/showpeople", do: PersonController.show(conn, id)
   
   get "/register", do: UserController.register(conn)
   post "/register", do: UserController.register(conn, conn.body_params)
