@@ -12,6 +12,7 @@ defmodule Pluggy.GroupController do
     def index(conn) do
         #get user if logged in
         session_user = conn.private.plug_session["user_id"]
+        #IO.inspect conn
         case session_user do
             nil ->
                 redirect(conn, "/")

@@ -4,7 +4,6 @@ defmodule Pluggy.Router do
   alias Pluggy.GroupController
   alias Pluggy.UserGroupController
   alias Pluggy.UserController
-  #alias Pluggy.BeforeDoPlug
 
   plug Plug.Static, at: "/", from: :pluggy
   plug(:put_secret_key_base)
@@ -20,8 +19,8 @@ defmodule Pluggy.Router do
   )
 
   plug(:fetch_session)
-  #plug(BeforeDoPlug, [])
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
+  plug(:after_do)
   plug(:match)
   plug(:dispatch)
 
@@ -50,6 +49,17 @@ defmodule Pluggy.Router do
 
   match _ do
     send_resp(conn, 404, "oops")
+  end
+
+  def after_do(conn, _opts) do
+    Plug.Conn.register_before_send(conn, fn conn ->
+      IO.inspect conn
+      case conn do
+        %Plug.Conn{method: "GET", status: 200} ->
+          put_session(conn, :info, "")
+        _ -> conn
+      end
+    end)
   end
 
   defp put_secret_key_base(conn, _) do
