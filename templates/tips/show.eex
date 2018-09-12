@@ -1,0 +1,14 @@
+<a href="/groups">Go back to groups</a>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Tip</th>
+    </tr>
+     <%= for tip <- tips do %>
+    <tr>
+        <th><%= tip.id %></th>
+        <th><%= tip.tip %></th>
+    </tr>
+  <% end %>
+</table>
