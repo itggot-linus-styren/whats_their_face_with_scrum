@@ -48,6 +48,8 @@ defmodule Pluggy.Router do
 
   get "/groups/:id/addpeople", do: PersonController.add(conn, id)
   get "/groups/:id/showpeople", do: PersonController.show(conn, id)
+
+  post "/groups/:id/addpeople", do: PersonController.add(conn, id, conn.body_params)
   
   get "/register", do: UserController.register(conn)
   post "/register", do: UserController.register(conn, conn.body_params)

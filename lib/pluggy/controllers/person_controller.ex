@@ -22,6 +22,15 @@ defmodule Pluggy.PersonController do
             send_resp(conn, 200, render("person/show", persons: Person.all(room_id)))
       end
     end
+
+    def add(conn, id) do
+        send_resp(conn, 200, render("person/new", group_id: id))
+    end
+
+    def add(conn, id, params ) do
+        Person.add(id, params)
+        redirect(conn, "/groups/#{id}")
+    end
   
     def new(conn),          do: send_resp(conn, 200, render("fruits/new", []))
     def edit(conn, id),     do: send_resp(conn, 200, render("fruits/edit", fruit: Fruit.get(id)))
@@ -31,10 +40,6 @@ defmodule Pluggy.PersonController do
       #move uploaded file from tmp-folder (might want to first check that a file was uploaded)
       File.rename(params["file"].path, "priv/static/uploads/#{params["file"].filename}")
       redirect(conn, "/fruits")
-    end
-
-    def add(conn) do
-        
     end
   
     def update(conn, id, params) do

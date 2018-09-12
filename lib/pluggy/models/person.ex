@@ -9,10 +9,18 @@ defmodule Pluggy.Person do
 		|> to_struct_list
 	end
 
-	def get(id) do
-		Postgrex.query!(DB, "SELECT * FROM fruits WHERE id = $1 LIMIT 1", [String.to_integer(id)], [pool: DBConnection.Poolboy]).rows
-		|> to_struct
-	end
+    def add(room_id, params) do
+        person_name = params["person_name"]
+        group_id = room_id
+
+        IO.inspect params
+        
+        image_path = "/uploads/#{params["fileupload"].filename}"
+
+        File.rename(params["fileupload"].path, "priv/static" <> image_path)
+
+        Postgrex.query!(DB, "INSERT INTO people(name, image_path, group_id) VALUES ($1, $2, $3)", [person_name, image_path, atoi(group_id)], [pool: DBConnection.Poolboy])
+    end
 
 	def update(id, params) do
 		name = params["name"]
@@ -29,7 +37,9 @@ defmodule Pluggy.Person do
 
 	def delete(id) do
 		Postgrex.query!(DB, "DELETE FROM fruits WHERE id = $1", [String.to_integer(id)], [pool: DBConnection.Poolboy])	
-	end
+    end
+    
+    defp atoi(str), do: String.to_integer(str)
 
 	def to_struct([[id, name, image_path, group_id]]) do
 		%Person{id: id, name: name, image_path: image_path, group_id: group_id}
