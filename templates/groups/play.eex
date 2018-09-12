@@ -1,3 +1,5 @@
 <a href="/groups">Go back to groups</a>
 
-<p><%= group %></p>
+<a href="/groups/<%= group_id %>/play/learn">Learn their names!</a>
+<a href="/groups/<%= group_id %>/play/name">What's their name?</a>
+<a href="/groups/<%= group_id %>/play/face">What's their face?</a>

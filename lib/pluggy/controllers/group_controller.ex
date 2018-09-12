@@ -32,7 +32,7 @@ defmodule Pluggy.GroupController do
     def new(conn),          do: send_resp(conn, 200, render(conn, "groups/new", owner_id: conn.private.plug_session["user_id"]))
     def show(conn, id),     do: send_resp(conn, 200, render(conn, "groups/show", group: Group.get(id)))
     def edit(conn, id),     do: send_resp(conn, 200, render(conn, "groups/edit", group: Group.get(id)))
-    def play(conn, id),     do: send_resp(conn, 200, render(conn, "groups/play", group: Poison.encode!(Person.all(id))))
+    def play(conn, id),     do: send_resp(conn, 200, render(conn, "groups/play", group_id: id))
 
     def create(conn, params) do
         Group.create(params)
