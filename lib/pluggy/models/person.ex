@@ -22,6 +22,12 @@ defmodule Pluggy.Person do
         Postgrex.query!(DB, "INSERT INTO people(name, image_path, group_id) VALUES ($1, $2, $3)", [person_name, image_path, atoi(group_id)], [pool: DBConnection.Poolboy])
     end
 
+    def pic(person_id, params) do
+        image_path = "/uploads/#{params["fileupload"].filename}"
+        File.rename(params["fileupload"].path, "priv/static" <> image_path)
+        Postgrex.query!(DB, "UPDATE people SET image_path = $1 WHERE id = $2", [image_path, atoi(person_id)], [pool: DBConnection.Poolboy])
+    end
+
 	def update(id, params) do
 		name = params["name"]
 		tastiness = String.to_integer(params["tastiness"])

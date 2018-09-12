@@ -2,9 +2,10 @@
 
 <ul>
   <%= for person <- persons do %>
-    <li>
-        <img src="<%= person.image_path %>">
-		<%= person.id %> - <%= person.name %>
+  <li>
+      <img src="<%= person.image_path %>">
+		  <%= person.id %> - <%= person.name %>
 	</li>
+  <a href="/groups/edit/<%= person.id %>/">Edit person</a>
   <% end %>
 </ul>

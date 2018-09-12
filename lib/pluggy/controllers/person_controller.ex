@@ -31,9 +31,17 @@ defmodule Pluggy.PersonController do
         Person.add(id, params)
         redirect(conn, "/groups/#{id}")
     end
+
+    def edit(conn, person_id) do
+        send_resp(conn, 200, render("person/edit", person_id: person_id))
+    end
+
+    def editpic(conn, person_id, params) do
+        Person.pic(person_id, params)
+        redirect(conn, "/groups")
+    end
   
     def new(conn),          do: send_resp(conn, 200, render("fruits/new", []))
-    def edit(conn, id),     do: send_resp(conn, 200, render("fruits/edit", fruit: Fruit.get(id)))
     
     def create(conn, params) do
       Fruit.create(params)
