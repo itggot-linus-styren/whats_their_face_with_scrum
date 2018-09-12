@@ -5,7 +5,7 @@ defmodule Pluggy.PersonController do
     alias Pluggy.Person
     alias Pluggy.Group
     alias Pluggy.User
-    import Pluggy.Template, only: [render: 2]
+    import Pluggy.Template, only: [render: 3]
     import Plug.Conn, only: [send_resp: 3]
   
   
@@ -19,12 +19,12 @@ defmodule Pluggy.PersonController do
             redirect(conn, "/")
         _   -> 
             #current_user = User.get(session_user)
-            send_resp(conn, 200, render("person/show", persons: Person.all(room_id)))
+            send_resp(conn, 200, render(conn, "person/show", persons: Person.all(room_id)))
       end
     end
 
     def add(conn, id) do
-        send_resp(conn, 200, render("person/new", group_id: id))
+        send_resp(conn, 200, render(conn, "person/new", group_id: id))
     end
 
     def add(conn, id, params ) do
@@ -33,7 +33,7 @@ defmodule Pluggy.PersonController do
     end
 
     def edit(conn, person_id) do
-        send_resp(conn, 200, render("person/edit", person_id: person_id))
+        send_resp(conn, 200, render(conn, "person/edit", person_id: person_id))
     end
 
     def editpic(conn, person_id, params) do
