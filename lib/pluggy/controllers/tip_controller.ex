@@ -32,34 +32,6 @@ defmodule Pluggy.TipController do
               send_resp(conn, 200, render(conn, "tips/show", tips: Tip.all(person_id)))
         end
       end
-
-    def add(conn, id) do
-        send_resp(conn, 200, render(conn, "person/new", group_id: id))
-    end
-
-    def add(conn, id, params ) do
-        Person.add(id, params)
-        redirect(conn, "/groups/#{id}")
-    end
-
-    def edit(conn, person_id) do
-        send_resp(conn, 200, render(conn, "person/edit", person_id: person_id))
-    end
-
-    def editpic(conn, person_id, params) do
-        Person.pic(person_id, params)
-        redirect(conn, "/groups")
-    end
-
-    def editname(conn, person_id, params) do
-        Person.name(person_id, params)
-        redirect(conn, "/groups")
-    end
-
-    def deleteperson(conn, person_id) do
-        Person.deleteperson(person_id)
-        redirect(conn, "/groups")
-    end
   
     defp redirect(conn, url) do
       Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
