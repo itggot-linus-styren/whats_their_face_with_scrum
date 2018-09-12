@@ -39,10 +39,16 @@ defmodule Pluggy.Usergroup do
             pool: DBConnection.Poolboy)
         :ok
     end
+
+    def delete_with_group(group_id) do
+        Postgrex.query!(DB, "DELETE FROM user_groups WHERE group_id = $1", [atoi(group_id)],
+            pool: DBConnection.Poolboy)
+        :ok
+    end
     
     defp atoi(str), do: String.to_integer(str)
 
-    defp empty?([[]]), do: false
+    defp empty?([]), do: false
     defp empty?(stupid) do
         IO.inspect stupid
         true

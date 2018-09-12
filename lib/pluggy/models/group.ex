@@ -14,7 +14,13 @@ defmodule Pluggy.Group do
 		Postgrex.query!(DB, "SELECT * FROM groups WHERE owner_id = $1", [owner.id],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
-	end
+    end
+    
+    def all_without_usergroup(owner) do
+        Postgrex.query!(DB, "SELECT * FROM groups WHERE id NOT IN (SELECT * FROM user_groups WHERE user_id = $1)", [owner.id],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+    end
 
     def get(id) when is_binary(id), do: get(atoi(id))
 	def get(id) do

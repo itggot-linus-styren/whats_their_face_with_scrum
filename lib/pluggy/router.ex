@@ -53,7 +53,6 @@ defmodule Pluggy.Router do
 
   def after_do(conn, _opts) do
     Plug.Conn.register_before_send(conn, fn conn ->
-      IO.inspect conn
       case conn do
         %Plug.Conn{method: "GET", status: 200} ->
           put_session(conn, :info, "")

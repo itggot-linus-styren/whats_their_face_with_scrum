@@ -21,7 +21,8 @@ defmodule Pluggy.GroupController do
                 send_resp(conn, 200, render(conn, "groups/index",
                           groups: Group.all_with_owner(current_user),
                           user: current_user,
-                          subscriptions: Usergroup.all_with_user(current_user)))
+                          subscriptions: Usergroup.all_with_user(current_user),
+                          groups_without_usergroup: Group.all_without_usergroup(current_user)))
         end
     end
 
@@ -42,6 +43,7 @@ defmodule Pluggy.GroupController do
     end
 
     def destroy(conn, id) do
+        Usergroup.delete(group_id)
         Group.delete(id)
         redirect(conn, "/groups")
     end
