@@ -2,6 +2,7 @@ defmodule Pluggy.Router do
   use Plug.Router
 
   alias Pluggy.PersonController
+  alias Pluggy.GamesController
   alias Pluggy.GroupController
   alias Pluggy.UserGroupController
   alias Pluggy.UserController
@@ -31,6 +32,10 @@ defmodule Pluggy.Router do
   get "/groups/:id",       do: GroupController.show(conn, id)
   get "/groups/:id/edit",  do: GroupController.edit(conn, id)
   get "/groups/:id/play",  do: GroupController.play(conn, id)
+
+  get "/groups/:id/play/learn",  do: GamesController.learn(conn, id)
+  get "/groups/:id/play/name",  do: GamesController.name(conn, id)
+  get "/groups/:id/play/face",  do: GamesController.face(conn, id)
   
   post "/groups",          do: GroupController.create(conn, conn.body_params)
   post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
