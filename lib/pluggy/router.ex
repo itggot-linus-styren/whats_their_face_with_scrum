@@ -30,6 +30,7 @@ defmodule Pluggy.Router do
   get "/groups/new",       do: GroupController.new(conn)
   get "/groups/:id",       do: GroupController.show(conn, id)
   get "/groups/:id/edit",  do: GroupController.edit(conn, id)
+  get "/groups/:id/play",  do: GroupController.play(conn, id)
   
   post "/groups",          do: GroupController.create(conn, conn.body_params)
   post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)

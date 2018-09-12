@@ -3,7 +3,6 @@ defmodule Pluggy.UserController do
   
   require IEx
 
-  alias Pluggy.Fruit
   alias Pluggy.User
   import Pluggy.Template, only: [render: 3]
   import Plug.Conn, only: [send_resp: 3]

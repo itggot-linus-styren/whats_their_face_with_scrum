@@ -1,6 +1,4 @@
 defmodule Pluggy.Template do
-	import Plug.Conn
-
   def render(conn, file, data \\ [], layout \\ true) do
   	case layout do
     	true -> 

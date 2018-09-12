@@ -3,8 +3,6 @@ defmodule Pluggy.PersonController do
     require IEx
 
     alias Pluggy.Person
-    alias Pluggy.Group
-    alias Pluggy.User
     import Pluggy.Template, only: [render: 3]
     import Plug.Conn, only: [send_resp: 3]
   

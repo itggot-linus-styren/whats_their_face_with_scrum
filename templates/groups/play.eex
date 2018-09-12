@@ -1,0 +1,3 @@
+<a href="/groups">Go back to groups</a>
+
+<p><%= group %></p>
