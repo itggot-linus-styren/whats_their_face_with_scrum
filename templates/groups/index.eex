@@ -1,5 +1,6 @@
 <h1>Group.index (/groups)</h1>
 
+<h2>Owned groups</h2>
 <table>
   <thead>
     <tr>
@@ -19,7 +20,44 @@
         <span>
 					<form action="/groups/<%= group.id %>/destroy" method="post">
 						<button type="submit">Destroy Group</button>
-					</form>	
+					</form>
+				</span>
+        <%= if Enum.find(groups_without_usergroup, fn %Pluggy.Group{id: id} -> id == group.id end) != nil do %>
+          <span>
+            <form action="/groups/subscribe" method="post">
+              <input name="subscription[user_id]" type="hidden" id="id" value="<%= user.id %>">
+              <input name="subscription[group_id]" type="hidden" id="id" value="<%= group.id %>">
+              <button type=submit>Subscribe Group</button>
+            </form>
+          </span>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<h2>Group subscriptions</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for usergroup <- subscriptions do %>
+		<% group = Pluggy.Group.get(usergroup.group_id) %>
+    <tr>
+      <td><%= group.name %></td>
+      <td><%= group.status %></td>
+      <td>
+        <span><a href="/groups/<%= group.id %>">Show</a></span>
+				<span>
+					<form action="/groups/unsubscribe/<%= usergroup.id %>" method="post">
+						<button type="submit">Unsubscribe</button>
+					</form>
 				</span>
       </td>
     </tr>
@@ -28,5 +66,5 @@
 </table>
 
 <a href="/groups/new">Add new group</a>
-
+<a href="/groups/subscribe">Subscribe to group</a>
 

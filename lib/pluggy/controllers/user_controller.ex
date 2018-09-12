@@ -5,11 +5,11 @@ defmodule Pluggy.UserController do
 
   alias Pluggy.Fruit
   alias Pluggy.User
-  import Pluggy.Template, only: [render: 2]
+  import Pluggy.Template, only: [render: 3]
   import Plug.Conn, only: [send_resp: 3]
 
 	def register(conn) do
-		send_resp(conn, 200, render("register/register", []))
+		send_resp(conn, 200, render(conn, "register/register", []))
 	end
 
 	def register(conn, params) do
@@ -36,7 +36,7 @@ defmodule Pluggy.UserController do
 
 
 	def login(conn) do
-		send_resp(conn, 200, render("login/login", []))
+		send_resp(conn, 200, render(conn, "login/login", []))
 	end
 
 	def login(conn, params) do
@@ -66,7 +66,7 @@ defmodule Pluggy.UserController do
 
 	def logout(conn) do
 		Plug.Conn.configure_session(conn, drop: true)
-		|> redirect("/fruits")
+		|> redirect("/groups")
 	end
 
 	# def create(conn, params) do

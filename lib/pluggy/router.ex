@@ -2,8 +2,8 @@ defmodule Pluggy.Router do
   use Plug.Router
 
   alias Pluggy.PersonController
-  alias Pluggy.FruitController
   alias Pluggy.GroupController
+  alias Pluggy.UserGroupController
   alias Pluggy.UserController
 
   plug Plug.Static, at: "/", from: :pluggy
@@ -21,23 +21,12 @@ defmodule Pluggy.Router do
 
   plug(:fetch_session)
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
+  plug(:after_do)
   plug(:match)
   plug(:dispatch)
 
-  get "/fruits",           do: FruitController.index(conn)
-  get "/fruits/new",       do: FruitController.new(conn)
-  get "/fruits/:id",       do: FruitController.show(conn, id)
-  get "/fruits/:id/edit",  do: FruitController.edit(conn, id)
-  
-  post "/fruits",          do: FruitController.create(conn, conn.body_params)
- 
-  # should be put /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post "/fruits/:id/edit", do: FruitController.update(conn, id, conn.body_params)
-
-  # should be delete /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post "/fruits/:id/destroy", do: FruitController.destroy(conn, id)
-
   get "/groups",           do: GroupController.index(conn)
+  get "/groups/subscribe", do: UserGroupController.subscribe(conn, conn.query_params)
   get "/groups/new",       do: GroupController.new(conn)
   get "/groups/:id",       do: GroupController.show(conn, id)
   get "/groups/:id/edit",  do: GroupController.edit(conn, id)
@@ -54,6 +43,9 @@ defmodule Pluggy.Router do
   post "/groups/edit/:person_id/pic", do: PersonController.editpic(conn, person_id, conn.body_params)
   post "/groups/edit/:person_id/name", do: PersonController.editname(conn, person_id, conn.body_params)
   post "/groups/delete/:person_id", do: PersonController.deleteperson(conn, person_id)
+
+  post "/groups/subscribe", do: GroupController.subscribe(conn, conn.body_params)
+  post "/groups/unsubscribe/:id", do: GroupController.unsubscribe(conn, id)
   
   get "/register", do: UserController.register(conn)
   post "/register", do: UserController.register(conn, conn.body_params)
@@ -67,6 +59,16 @@ defmodule Pluggy.Router do
 
   match _ do
     send_resp(conn, 404, "oops")
+  end
+
+  def after_do(conn, _opts) do
+    Plug.Conn.register_before_send(conn, fn conn ->
+      case conn do
+        %Plug.Conn{method: "GET", status: 200} ->
+          put_session(conn, :info, "")
+        _ -> conn
+      end
+    end)
   end
 
   defp put_secret_key_base(conn, _) do
