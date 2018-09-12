@@ -32,6 +32,10 @@ defmodule Pluggy.Person do
         Postgrex.query!(DB, "UPDATE people SET name = $1 WHERE id = $2", [params["person_name"], atoi(person_id)], [pool: DBConnection.Poolboy])
     end
 
+    def deleteperson(person_id) do
+        Postgrex.query!(DB, "DELETE FROM people WHERE id = $1", [atoi(person_id)], [pool: DBConnection.Poolboy])	
+    end
+
 	def update(id, params) do
 		name = params["name"]
 		tastiness = String.to_integer(params["tastiness"])

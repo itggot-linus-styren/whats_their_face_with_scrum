@@ -13,3 +13,8 @@
     <input type="submit" value="Change name">
 
 </form>
+
+<h3>Delete person</h3>
+<form action="/groups/delete/<%= person_id %>" method="post">
+	<input type="submit" value="Delete person">
+</form>	

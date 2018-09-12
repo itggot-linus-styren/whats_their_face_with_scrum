@@ -53,6 +53,7 @@ defmodule Pluggy.Router do
   post "/groups/:id/addpeople", do: PersonController.add(conn, id, conn.body_params)
   post "/groups/edit/:person_id/pic", do: PersonController.editpic(conn, person_id, conn.body_params)
   post "/groups/edit/:person_id/name", do: PersonController.editname(conn, person_id, conn.body_params)
+  post "/groups/delete/:person_id", do: PersonController.deleteperson(conn, person_id)
   
   get "/register", do: UserController.register(conn)
   post "/register", do: UserController.register(conn, conn.body_params)

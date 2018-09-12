@@ -45,6 +45,11 @@ defmodule Pluggy.PersonController do
         Person.name(person_id, params)
         redirect(conn, "/groups")
     end
+
+    def deleteperson(conn, person_id) do
+        Person.deleteperson(person_id)
+        redirect(conn, "/groups")
+    end
   
     def new(conn),          do: send_resp(conn, 200, render("fruits/new", []))
     
