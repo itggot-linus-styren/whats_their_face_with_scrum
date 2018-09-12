@@ -1,10 +1,10 @@
 defmodule Pluggy.Router do
   use Plug.Router
 
-  alias Pluggy.FruitController
   alias Pluggy.GroupController
   alias Pluggy.UserGroupController
   alias Pluggy.UserController
+  alias Pluggy.BeforeDoPlug
 
   plug Plug.Static, at: "/", from: :pluggy
   plug(:put_secret_key_base)
@@ -20,22 +20,10 @@ defmodule Pluggy.Router do
   )
 
   plug(:fetch_session)
+  plug(BeforeDoPlug, [])
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
   plug(:match)
   plug(:dispatch)
-
-  get "/fruits",           do: FruitController.index(conn)
-  get "/fruits/new",       do: FruitController.new(conn)
-  get "/fruits/:id",       do: FruitController.show(conn, id)
-  get "/fruits/:id/edit",  do: FruitController.edit(conn, id)
-  
-  post "/fruits",          do: FruitController.create(conn, conn.body_params)
- 
-  # should be put /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post "/fruits/:id/edit", do: FruitController.update(conn, id, conn.body_params)
-
-  # should be delete /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post "/fruits/:id/destroy", do: FruitController.destroy(conn, id)
 
   get "/groups",           do: GroupController.index(conn)
   get "/groups/subscribe", do: UserGroupController.subscribe(conn)

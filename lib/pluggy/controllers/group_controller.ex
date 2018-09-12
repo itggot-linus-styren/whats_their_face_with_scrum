@@ -6,7 +6,7 @@ defmodule Pluggy.GroupController do
     alias Pluggy.User
     alias Pluggy.Usergroup
     import Pluggy.Template, only: [render: 2]
-    import Plug.Conn, only: [send_resp: 3]
+    import Plug.Conn, only: [send_resp: 3, put_session: 3]
 
 
     def index(conn) do
@@ -46,8 +46,15 @@ defmodule Pluggy.GroupController do
     end
 
     def subscribe(conn, params) do
-        Usergroup.create(params)
-        redirect(conn, "/groups")
+        case Usergroup.exists?(params) do
+            true ->
+                conn
+                |> put_session(:info, "You are already subscribed to that group!")
+                |> redirect(to: "/groups")
+            false ->
+                Usergroup.create(params)
+                redirect(conn, "/groups")
+        end
     end
 
     def unsubscribe(conn, id) do

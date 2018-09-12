@@ -14,7 +14,13 @@ defmodule Pluggy.Usergroup do
 		Postgrex.query!(DB, "SELECT * FROM user_groups WHERE user_id = $1", [user.id],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
-	end
+    end
+    
+    def exists?(%{"subscription" => %{"user_id" => user_id, "group_id" => group_id}}) do
+        Postgrex.query!(DB, "SELECT * FROM user_groups WHERE user_id = $1 AND group_id = $2 LIMIT 1", [atoi(user_id), atoi(group_id)],
+            pool: DBConnection.Poolboy
+        ).rows |> empty?
+    end
 
 	def get(id) do
 		Postgrex.query!(DB, "SELECT * FROM user_groups WHERE id = $1 LIMIT 1", [atoi(id)],
@@ -35,6 +41,9 @@ defmodule Pluggy.Usergroup do
     end
     
     defp atoi(str), do: String.to_integer(str)
+
+    defp empty?([[]]), do: true
+    defp empty?(_), do: false
 
 	def to_struct([[id, user_id, group_id]]) do
 		%Usergroup{id: id, user_id: user_id, group_id: group_id}
