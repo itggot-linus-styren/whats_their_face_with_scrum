@@ -33,7 +33,8 @@ defmodule Pluggy.Person do
     end
 
     def deleteperson(person_id) do
-        Postgrex.query!(DB, "DELETE FROM people WHERE id = $1", [atoi(person_id)], [pool: DBConnection.Poolboy])	
+        Postgrex.query!(DB, "DELETE FROM people WHERE id = $1", [atoi(person_id)], [pool: DBConnection.Poolboy])
+        Postgrex.query!(DB, "DELETE FROM tips WHERE person_id = $1", [atoi(person_id)], [pool: DBConnection.Poolboy])	
     end
     
     defp atoi(str), do: String.to_integer(str)

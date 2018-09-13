@@ -7,5 +7,10 @@
 		  <%= person.id %> - <%= person.name %>
 	</li>
   <a href="/groups/edit/<%= person.id %>/">Edit person</a>
+  <br>
+  <a href="/groups/tips/<%= person.id %>/">View tips for this person</a>
+  <form method="get" action="/groups/tip/<%= person.id %>">
+    <input type="submit" value="Add a tip to this person">
+  </form>
   <% end %>
 </ul>
