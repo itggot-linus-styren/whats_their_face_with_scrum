@@ -21,3 +21,107 @@ body {
     color: #29335C;
     margin: 3px;
 }
+
+.card-outline {
+    outline: 5px solid greenyellow;
+    box-sizing: border-box;
+}
+
+.chessboard {
+    width:50vw;
+	margin:0 auto;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-between;
+}
+
+.card-component {
+    display: flex;
+    flex-direction: row;
+    margin: 1rem 1rem;
+}
+
+.card_front {
+    width: 128px;
+    height: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_back {
+    width: 128px;
+    height: 128px;
+}
+
+.side-by-side {
+    display: flex;
+    flex-direction: row;
+}
+
+.side-by-side > img {
+    width: 300px;
+    height: 300px;
+}
+
+.hangman {
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hangman > button {
+    width: 50%;
+}
+
+.hangman-board {
+    background: white;
+    height: 300px;
+    width: 300px;
+}
+
+/* C. blank letters */
+.hangman-word {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0 18px 0;
+}
+
+.word-blankletter {
+    align-items: flex-end;
+    background-color: #fffb00;
+    box-shadow: 0 2px 5px #D0D0D0;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    margin: 0 2px 2px 2px;
+    width: 20px;
+}
+
+
+.hangman-keyboard > button {
+	background-color: white;
+	border: none;
+	color: #333;
+	box-shadow: 0 2px 5px #D0D0D0;
+	font-family: 'Roboto', sans-serif;
+	margin: 2px;
+}
+
+.hangman-keyboard > button:disabled {
+	color: #CCC;
+}
+
+/* D. keyboard */
+.hangman-keyboard {
+    align-items: center;
+    display: flex;
+    flex: 2 1 auto;
+    flex-direction: column;
+}
+
+.keyboard-row {
+    display: flex;
+}
