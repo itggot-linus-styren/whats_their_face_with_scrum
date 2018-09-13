@@ -43,12 +43,12 @@ defmodule Pluggy.Router do
   get "/groups/tip/:person_id", do: TipController.create(conn, person_id)
   get "/groups/tips/:person_id", do: TipController.show(conn, person_id)
 
+  post "/groups/tip/:person_id", do: TipController.create(conn, person_id, conn.body_params)
+
   post "/groups/:id/addpeople", do: PersonController.add(conn, id, conn.body_params)
   post "/groups/edit/:person_id/pic", do: PersonController.editpic(conn, person_id, conn.body_params)
   post "/groups/edit/:person_id/name", do: PersonController.editname(conn, person_id, conn.body_params)
   post "/groups/delete/:person_id", do: PersonController.deleteperson(conn, person_id)
-
-  post "/groups/tip/:person_id", do: TipController.create(conn, person_id, conn.body_params)
 
   post "/groups/subscribe", do: GroupController.subscribe(conn, conn.body_params)
   post "/groups/unsubscribe/:id", do: GroupController.unsubscribe(conn, id)
