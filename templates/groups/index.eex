@@ -54,6 +54,7 @@
       <td><%= group.status %></td>
       <td>
         <span><a href="/groups/<%= group.id %>">Show</a></span>
+        <span><a href="/groups/<%= group.id %>/play">Play</a></span>
 				<span>
 					<form action="/groups/unsubscribe/<%= usergroup.id %>" method="post">
 						<button type="submit">Unsubscribe</button>

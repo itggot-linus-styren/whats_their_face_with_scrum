@@ -24,6 +24,7 @@ defmodule Pluggy.MixProject do
   def deps do
     [
       {:cowboy, "~> 2.0"},
+      {:poison, "~> 3.1"},
       {:plug, "~> 1.0"},
       {:postgrex, "~> 0.13.5"},
       {:poolboy, "1.5.1"},

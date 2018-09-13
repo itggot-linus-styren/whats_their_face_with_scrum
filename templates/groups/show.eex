@@ -10,7 +10,9 @@
         <%= group.status %>
     </li>
 </ul>
-
+<a href="/groups/<%= group.id %>/play">Play</a></span>
+<br>
+<br>
 <a href="/groups/<%= group.id %>/addpeople/">Add people to group</a>
 <br>
 <br>
