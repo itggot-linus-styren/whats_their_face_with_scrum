@@ -15,9 +15,12 @@
       <td><%= group.name %></td>
       <td><%= group.status %></td>
       <td>
+      <br>
         <span><a href="/groups/<%= group.id %>">Show</a></span>
         <span><a href="/groups/<%= group.id %>/edit">Edit</a></span>
         <span>
+        <br>
+        <br>
 					<form action="/groups/<%= group.id %>/destroy" method="post">
 						<button type="submit">Destroy Group</button>
 					</form>
@@ -37,6 +40,9 @@
   </tbody>
 </table>
 
+<br>
+<br>
+
 <h2>Group subscriptions</h2>
 <table>
   <thead>
@@ -53,9 +59,12 @@
       <td><%= group.name %></td>
       <td><%= group.status %></td>
       <td>
+      <br>
         <span><a href="/groups/<%= group.id %>">Show</a></span>
         <span><a href="/groups/<%= group.id %>/play">Play</a></span>
 				<span>
+        <br>
+        <br>
 					<form action="/groups/unsubscribe/<%= usergroup.id %>" method="post">
 						<button type="submit">Unsubscribe</button>
 					</form>
@@ -66,6 +75,8 @@
   </tbody>
 </table>
 
+<br>
+<br>
 <a href="/groups/new">Add new group</a>
 <a href="/groups/subscribe">Subscribe to group</a>
 

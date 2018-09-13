@@ -1,6 +1,31 @@
 body {
-	background-color: peachpuff;
+    background-color: #2c3e50;
+    color: white;
+    font-family: sans-serif;
 }
+
+a, input[type=submit], input[type=file], button{
+    background-color: #9b59b6;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px !important;
+    color: white;
+    text-decoration: none;
+}
+input[type=submit], input[type=file], button{
+    border: 0;
+}
+
+input[type=submit]:active, a:hover, button:hover{
+    background-color: #8e44ad
+}
+
+
+.grouplisting{
+    height: 150px;
+    width: 150px;
+}
+
 
 .transparent {
     color: transparent;
