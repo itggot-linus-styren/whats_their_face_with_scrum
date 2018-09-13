@@ -197,9 +197,18 @@ Vue.component('hangman-component', {
             this.first_name = alternatives[0].name.toUpperCase().split(" ")[0];
             console.log(this.first_name);
             for (let i = 0; i < this.first_name.length; i++) this.word_divs.push("");
+
+            if (this.game_init) {
+                this.drawGallows(this.ctx);
+            }
+
+
             this.game_init = true;
             this.next_game = false;
             this.$eventHub.$emit("enable-all");
+
+            this.guesses = 0;
+
             console.log("game init");
         });
         this.$eventHub.$on('game-over', () => {
@@ -249,18 +258,26 @@ Vue.component(`card-component`, {
     data() {
         return {
             is_card_shown: false,
-            is_card_matched: false
+            is_card_matched: false,
+            is_card_animation_ongoing: false,
+            is_card_animation2_ongoing: false
         }
     },
     methods: {
         flipCard() {
             if (!this.is_card_shown && this.can_open) {
                 this.is_card_shown = true;
+                setTimeout(() => {   
+                    this.is_card_animation_ongoing = true;
+                }, 500);
                 this.$eventHub.$emit('flipCard', this);
             }
         },
-        closeCard() {
-            this.is_card_shown = false;
+        closeCard() {            
+            this.is_card_animation_ongoing = false;
+            setTimeout(() => {   
+                this.is_card_shown = false;
+            }, 500);
         },
         matchCard() {
             this.is_card_matched = true;
@@ -268,8 +285,8 @@ Vue.component(`card-component`, {
     },
     template:
         `
-        <div class="card-component" @click="flipCard" :class="{'card-outline': is_card_matched}">
-            <div v-if="!card.is_image && is_card_shown" class="card_front person_name">{{card.name}}</div><img v-if="card.is_image && is_card_shown" :src="card.image_path" class="card_front"><img src="/cardback.png" class="card_back" v-if="!is_card_shown">
+        <div class="card-component" @click="flipCard" :class="{'card-outline': is_card_matched}">            
+            <div v-if="!card.is_image" :class="{card_front: true, person_name: true, rotate: !is_card_animation_ongoing}">{{card.name}}</div><img v-if="card.is_image" :src="card.image_path" :class="{card_front: true, rotate: !is_card_animation_ongoing}"><img src="/cardback.png" :class="{card_back: true, rotate: is_card_shown}">
         </div>
         `
 });
@@ -307,10 +324,12 @@ Vue.component(`chessboard-component`, {
         },*/
         replay() {
             this.game_over = false;
+            this.show_replay_button = false;
             this.$eventHub.$emit("start-game", this.people);
             this.$eventHub.$emit("get-remaining", 8);
         },
         next() {
+            this.show_replay_button = false;
             this.$eventHub.$emit("get-remaining", 8);
         }
     },
