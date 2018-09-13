@@ -31,7 +31,12 @@ defmodule Pluggy.TipController do
               #current_user = User.get(session_user)
               send_resp(conn, 200, render(conn, "tips/show", tips: Tip.all(person_id)))
         end
-      end
+    end
+
+    def delete(conn, tip_id) do
+        Tip.delete(tip_id)
+        redirect(conn, "/groups")
+    end
   
     defp redirect(conn, url) do
       Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")

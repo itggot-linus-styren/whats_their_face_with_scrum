@@ -1,14 +1,14 @@
 <a href="/groups">Go back to groups</a>
 
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Tip</th>
-    </tr>
-     <%= for tip <- tips do %>
-    <tr>
-        <th><%= tip.id %></th>
-        <th><%= tip.tip %></th>
-    </tr>
+<ul>
+  <%= for tip <- tips do %>
+    <li>
+	    <%= tip.id %> - <%= tip.tip %> 
+	</li>
+    <form method="post" action="/groups/tip/delete/<%= tip.id %>">
+        <input type="submit" value="Delete tip">
+    </from>
+    <br>
+    <br>
   <% end %>
-</table>
+</ul>

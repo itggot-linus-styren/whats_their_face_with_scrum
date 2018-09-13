@@ -13,6 +13,11 @@ defmodule Pluggy.Tip do
 		Postgrex.query!(DB, "SELECT * FROM Tips WHERE person_id = $1", [atoi(person_id)], [pool: DBConnection.Poolboy]).rows
 		|> to_struct_list
 	end
+
+	def delete(tip_id) do
+		Postgrex.query!(DB, "DELETE FROM tips WHERE id = $1", [atoi(tip_id)], [pool: DBConnection.Poolboy])	
+	end
+
     
     defp atoi(str), do: String.to_integer(str)
 
