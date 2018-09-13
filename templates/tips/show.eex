@@ -7,7 +7,7 @@
 	</li>
     <form method="post" action="/groups/tip/delete/<%= tip.id %>">
         <input type="submit" value="Delete tip">
-    </from>
+    </form>
     <br>
     <br>
   <% end %>
