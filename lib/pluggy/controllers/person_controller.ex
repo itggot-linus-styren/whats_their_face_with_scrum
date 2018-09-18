@@ -17,12 +17,12 @@ defmodule Pluggy.PersonController do
             redirect(conn, "/")
         _   -> 
             #current_user = User.get(session_user)
-            send_resp(conn, 200, render(conn, "person/show", persons: Person.all(room_id)))
+            send_resp(conn, 200, render(conn, "person/show", people_json: Poison.encode!(Person.all(room_id))))
       end
     end
 
     def add(conn, id) do
-        send_resp(conn, 200, render(conn, "person/new", group_id: id))
+        send_resp(conn, 200, render(conn, "person/new", group_json: Poison.encode!(Group.get(id))))
     end
 
     def add(conn, id, params ) do
@@ -31,7 +31,7 @@ defmodule Pluggy.PersonController do
     end
 
     def edit(conn, person_id) do
-        send_resp(conn, 200, render(conn, "person/edit", person_id: person_id))
+        send_resp(conn, 200, render(conn, "person/edit", person_json: Poison.encode!(Person.get(person_id))))
     end
 
     def editpic(conn, person_id, params) do

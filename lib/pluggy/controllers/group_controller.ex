@@ -29,10 +29,10 @@ defmodule Pluggy.GroupController do
 
     # TODO: check if user is logged in before CRUD
 
-    def new(conn),          do: send_resp(conn, 200, render(conn, "groups/new", owner_id: conn.private.plug_session["user_id"]))
-    def show(conn, id),     do: send_resp(conn, 200, render(conn, "groups/show", group: Group.get(id)))
-    def edit(conn, id),     do: send_resp(conn, 200, render(conn, "groups/edit", group: Group.get(id)))
-    def play(conn, id),     do: send_resp(conn, 200, render(conn, "groups/play", group_id: id))
+    def new(conn),          do: send_resp(conn, 200, render(conn, "groups/new", user_json: Poison.encode!(User.get(conn.private.plug_session["user_id"]))))
+    def show(conn, id),     do: send_resp(conn, 200, render(conn, "groups/show", group_json: Poison.encode!(Group.get(id))))
+    def edit(conn, id),     do: send_resp(conn, 200, render(conn, "groups/edit", group_json: Poison.encode!Group.get(id))))
+    def play(conn, id),     do: send_resp(conn, 200, render(conn, "groups/play", group_json: Poison.encode!Group.get(id))))
 
     def create(conn, params) do
         Group.create(params)
