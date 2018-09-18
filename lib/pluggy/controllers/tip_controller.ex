@@ -11,7 +11,7 @@ defmodule Pluggy.TipController do
   
   
     def create(conn, person_id) do
-        send_resp(conn, 200, render(conn, "tips/create", person_id: person_id))
+        send_resp(conn, 200, render(conn, "tips/create", person_json: Poison.encode!(person_id))
     end
 
     def create(conn, person_id, params) do
@@ -29,7 +29,7 @@ defmodule Pluggy.TipController do
               redirect(conn, "/")
           _   -> 
               #current_user = User.get(session_user)
-              send_resp(conn, 200, render(conn, "tips/show", tips: Tip.all(person_id)))
+              send_resp(conn, 200, render(conn, "tips/show", tips_json: Poison.encode!(Tip.all(person_id)))
         end
     end
 
