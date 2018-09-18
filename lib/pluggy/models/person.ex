@@ -2,7 +2,13 @@ defmodule Pluggy.Person do
 	
 	defstruct(id: nil, name: "", image_path: "", group_id: nil)
 
-	alias Pluggy.Person
+    alias Pluggy.Person
+    
+    def all() do
+		Postgrex.query!(DB, "SELECT * FROM people", [],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+    end
 
 	def all(room_id) do
 		Postgrex.query!(DB, "SELECT * FROM people WHERE group_id = $1", [atoi(room_id)], [pool: DBConnection.Poolboy]).rows

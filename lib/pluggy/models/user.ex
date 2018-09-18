@@ -1,8 +1,14 @@
 defmodule Pluggy.User do
 
-	defstruct(id: nil, username: "")
+	defstruct(id: nil, username: "", encrypted_pw: "")
 
 	alias Pluggy.User
+
+	def all() do
+		Postgrex.query!(DB, "SELECT * FROM users", [],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+    end
 
 
 	def get(id) do
@@ -11,8 +17,12 @@ defmodule Pluggy.User do
       ).rows |> to_struct
 	end
 
-	def to_struct([[id, username]]) do
-		%User{id: id, username: username}
+	def to_struct([[id, username, encrypted_pw]]) do
+		%User{id: id, username: username, encrypted_pw: encrypted_pw}
+	end
+
+	def to_struct_list(rows) do
+		for [id, username, encrypted_pw] <- rows, do: %User{id: id, username: username, encrypted_pw: encrypted_pw}
 	end
 
 	def register(user, crypted_pw) do

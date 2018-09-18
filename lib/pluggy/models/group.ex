@@ -9,7 +9,7 @@ defmodule Pluggy.Group do
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
     end
-    
+
     def all_like(search) do
 		Postgrex.query!(DB, "SELECT * FROM groups WHERE name LIKE $1", ["%" <> search <> "%"],
             pool: DBConnection.Poolboy

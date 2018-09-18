@@ -1,6 +1,12 @@
 defmodule Pluggy.Router do
   use Plug.Router
 
+  alias Pluggy.Group
+  alias Pluggy.Person
+  alias Pluggy.Tip
+  alias Pluggy.User
+  alias Pluggy.Usergroup
+
   alias Pluggy.TipController
   alias Pluggy.PersonController
   alias Pluggy.GamesController
@@ -27,50 +33,33 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
-  get "/groups",           do: GroupController.index(conn)
-  get "/groups/subscribe", do: UserGroupController.subscribe(conn, conn.query_params)
-  get "/groups/new",       do: GroupController.new(conn)
-  get "/groups/:id",       do: GroupController.show(conn, id)
-  get "/groups/:id/edit",  do: GroupController.edit(conn, id)
-  get "/groups/:id/play",  do: GroupController.play(conn, id)
 
-  get "/groups/:id/play/learn",  do: GamesController.learn(conn, id)
-  get "/groups/:id/play/name",  do: GamesController.name(conn, id)
-  get "/groups/:id/play/face",  do: GamesController.face(conn, id)
-  get "/groups/:id/play/hangman",  do: GamesController.hangman(conn, id)
-  get "/groups/:id/play/memory",  do: GamesController.memory(conn, id)
-  
-  post "/groups",          do: GroupController.create(conn, conn.body_params)
-  post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
-  post "/groups/:id/destroy", do: GroupController.destroy(conn, id)
+  get "/groups" do
+    
+    
+  end
 
-  get "/groups/:id/addpeople", do: PersonController.add(conn, id)
-  get "/groups/:id/showpeople", do: PersonController.show(conn, id)
-  get "/groups/edit/:person_id", do: PersonController.edit(conn, person_id)
+  get "/persons" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Person.all()))
+  end
 
-  get "/groups/tip/:person_id", do: TipController.create(conn, person_id)
-  get "/groups/tips/:person_id", do: TipController.show(conn, person_id)
+  get "/tips" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Tip.all()))
+  end
 
-  post "/groups/tip/:person_id", do: TipController.create(conn, person_id, conn.body_params)
-  post "/groups/tip/delete/:tip_id", do: TipController.delete(conn, tip_id)
+  get "/users" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(User.all()))
+  end
 
-  post "/groups/:id/addpeople", do: PersonController.add(conn, id, conn.body_params)
-  post "/groups/edit/:person_id/pic", do: PersonController.editpic(conn, person_id, conn.body_params)
-  post "/groups/edit/:person_id/name", do: PersonController.editname(conn, person_id, conn.body_params)
-  post "/groups/delete/:person_id", do: PersonController.deleteperson(conn, person_id)
-
-  post "/groups/subscribe", do: GroupController.subscribe(conn, conn.body_params)
-  post "/groups/unsubscribe/:id", do: GroupController.unsubscribe(conn, id)
-  
-  get "/register", do: UserController.register(conn)
-  post "/register", do: UserController.register(conn, conn.body_params)
-
-  get "/", do: UserController.login(conn)
-  post "/", do: UserController.login(conn, conn.body_params)
+  get "/usergroups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Usergroup.all()))
+  end
 
 
-  post "/users/login",     do: UserController.login(conn, conn.body_params)
-  post "/users/logout",    do: UserController.logout(conn)
 
   match _ do
     send_resp(conn, 404, "oops")

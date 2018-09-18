@@ -1,7 +1,0 @@
-<a href="/groups">Go back to groups</a>
-<h1>Total score: {{score}}</h1>
-<h2>Correct: {{correct}} / {{total}}</h2>
-<guess-component
-    v-bind:show_image='true'
-    v-bind:people='<%= people_json %>'
-></guess-component>
