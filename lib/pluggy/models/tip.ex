@@ -12,7 +12,7 @@ defmodule Pluggy.Tip do
 		Postgrex.query!(DB, "SELECT * FROM tips", [],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
-    end
+	end
 
 
 	def all(person_id) do

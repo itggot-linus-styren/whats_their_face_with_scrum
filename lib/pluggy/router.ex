@@ -35,28 +35,118 @@ defmodule Pluggy.Router do
 
 
   get "/groups" do
-    
-    
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Group.all()))
+  end
+  get "/groups/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Group.all(id)))
+  end
+  post "/groups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/groups/:id" do
+    Group.update(conn, id, conn.body_params)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/groups/:id" do
+    Group.destroy(conn, id)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
   end
 
   get "/persons" do
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, Poison.encode!(Person.all()))
   end
+  get "/persons/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Person.all(id)))
+  end
+  post "/persons" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/persons/:id" do
+    Person.update(conn, id, conn.body_params) #add update in person model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/persons/:id" do
+    Person.deleteperson(conn, id)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
   get "/tips" do
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, Poison.encode!(Tip.all()))
+  end
+  get "/tips/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Tip.all(id)))
+  end
+  post "/tips" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/tips/:id" do
+    Tip.update(conn, id, conn.body_params) #add update in tip model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/tips/:id" do
+    Tip.destroy(conn, id)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
   end
 
   get "/users" do
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, Poison.encode!(User.all()))
   end
+  get "/users/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(User.all(id)))
+  end
+  post "/users" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/users/:id" do
+    User.update(conn, id, conn.body_params) #add update in User model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/users/:id" do
+    User.destroy(conn, id) #add destroy in USer model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
   get "/usergroups" do
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, Poison.encode!(Usergroup.all()))
+  end
+  get "/usergroups/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Usergroup.all(id)))
+  end
+  post "/usergroups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/usergroups/:id" do
+    Usergroup.update(conn, id, conn.body_params) #add update in Usergroups model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/usergroups/:id" do
+    Usergroup.destroy(conn, id) #fix destroy in USergroups model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
   end
 
 

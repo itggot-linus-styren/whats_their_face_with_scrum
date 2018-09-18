@@ -10,6 +10,12 @@ defmodule Pluggy.Group do
         ).rows |> to_struct_list
     end
 
+    def all(id) do
+		Postgrex.query!(DB, "SELECT * FROM groups WHERE id = $1", [atoi(id)],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+    end
+
     def all_like(search) do
 		Postgrex.query!(DB, "SELECT * FROM groups WHERE name LIKE $1", ["%" <> search <> "%"],
             pool: DBConnection.Poolboy
