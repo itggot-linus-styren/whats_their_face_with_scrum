@@ -15,6 +15,10 @@ defmodule Pluggy.Usergroup do
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
     end
+
+    def update(conn, id, params) do
+		Postgrex.query!(DB, "UPDATE users SET name = $2, status = $3 WHERE id = $1", [atoi(tip_id), params["name"], params["status"]], [pool: DBConnection.Poolboy])
+	end
     
     def all_with_user(user) do
 		Postgrex.query!(DB, "SELECT * FROM user_groups WHERE user_id = $1", [user.id],
@@ -40,13 +44,13 @@ defmodule Pluggy.Usergroup do
         :ok
     end
 
-    def delete(id) do
+    def delete(conn ,id) do
         Postgrex.query!(DB, "DELETE FROM user_groups WHERE id = $1", [atoi(id)],
             pool: DBConnection.Poolboy)
         :ok
     end
 
-    def delete_with_group(group_id) do
+    def delete_with_group(conn, group_id) do
         Postgrex.query!(DB, "DELETE FROM user_groups WHERE group_id = $1", [atoi(group_id)],
             pool: DBConnection.Poolboy)
         :ok
