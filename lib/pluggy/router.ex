@@ -116,12 +116,12 @@ defmodule Pluggy.Router do
     |> send_resp(200, '{"status":"OK"}'))
   end
   patch "/users/:id" do
-    User.update(conn, id, conn.body_params) #add update in User model
+    User.update(conn, id, conn.body_params) 
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
   delete "/users/:id" do
-    User.destroy(conn, id) #add destroy in USer model
+    User.delete(conn, id) 
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
