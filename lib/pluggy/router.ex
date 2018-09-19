@@ -93,7 +93,7 @@ defmodule Pluggy.Router do
     |> send_resp(200, '{"status":"OK"}'))
   end
   patch "/tips/:id" do
-    Tip.update(conn, id, conn.body_params) #add update in tip model
+    Tip.update(conn, id, conn.body_params) 
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
