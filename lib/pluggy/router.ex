@@ -1,6 +1,12 @@
 defmodule Pluggy.Router do
   use Plug.Router
 
+  alias Pluggy.Group
+  alias Pluggy.Person
+  alias Pluggy.Tip
+  alias Pluggy.User
+  alias Pluggy.Usergroup
+
   alias Pluggy.TipController
   alias Pluggy.PersonController
   alias Pluggy.GamesController
@@ -27,50 +33,123 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
-  get "/groups",           do: GroupController.index(conn)
-  get "/groups/subscribe", do: UserGroupController.subscribe(conn, conn.query_params)
-  get "/groups/new",       do: GroupController.new(conn)
-  get "/groups/:id",       do: GroupController.show(conn, id)
-  get "/groups/:id/edit",  do: GroupController.edit(conn, id)
-  get "/groups/:id/play",  do: GroupController.play(conn, id)
 
-  get "/groups/:id/play/learn",  do: GamesController.learn(conn, id)
-  get "/groups/:id/play/name",  do: GamesController.name(conn, id)
-  get "/groups/:id/play/face",  do: GamesController.face(conn, id)
-  get "/groups/:id/play/hangman",  do: GamesController.hangman(conn, id)
-  get "/groups/:id/play/memory",  do: GamesController.memory(conn, id)
-  
-  post "/groups",          do: GroupController.create(conn, conn.body_params)
-  post "/groups/:id/edit", do: GroupController.update(conn, id, conn.body_params)
-  post "/groups/:id/destroy", do: GroupController.destroy(conn, id)
+  get "/groups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Group.all()))
+  end
+  get "/groups/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Group.all(id)))
+  end
+  post "/groups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/groups/:id" do
+    Group.update(conn, id, conn.body_params)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/groups/:id" do
+    Group.destroy(conn, id)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
-  get "/groups/:id/addpeople", do: PersonController.add(conn, id)
-  get "/groups/:id/showpeople", do: PersonController.show(conn, id)
-  get "/groups/edit/:person_id", do: PersonController.edit(conn, person_id)
+  get "/persons" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Person.all()))
+  end
+  get "/persons/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Person.all(id)))
+  end
+  post "/persons" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/persons/:id" do
+    Person.update(conn, id, conn.body_params) #add update in person model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/persons/:id" do
+    Person.deleteperson(conn, id)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
-  get "/groups/tip/:person_id", do: TipController.create(conn, person_id)
-  get "/groups/tips/:person_id", do: TipController.show(conn, person_id)
+  get "/tips" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Tip.all()))
+  end
+  get "/tips/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Tip.all(id)))
+  end
+  post "/tips" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/tips/:id" do
+    Tip.update(conn, id, conn.body_params) #add update in tip model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/tips/:id" do
+    Tip.destroy(conn, id)
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
-  post "/groups/tip/:person_id", do: TipController.create(conn, person_id, conn.body_params)
-  post "/groups/tip/delete/:tip_id", do: TipController.delete(conn, tip_id)
+  get "/users" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(User.all()))
+  end
+  get "/users/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(User.all(id)))
+  end
+  post "/users" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/users/:id" do
+    User.update(conn, id, conn.body_params) #add update in User model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/users/:id" do
+    User.destroy(conn, id) #add destroy in USer model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
-  post "/groups/:id/addpeople", do: PersonController.add(conn, id, conn.body_params)
-  post "/groups/edit/:person_id/pic", do: PersonController.editpic(conn, person_id, conn.body_params)
-  post "/groups/edit/:person_id/name", do: PersonController.editname(conn, person_id, conn.body_params)
-  post "/groups/delete/:person_id", do: PersonController.deleteperson(conn, person_id)
+  get "/usergroups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Usergroup.all()))
+  end
+  get "/usergroups/:id" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, Poison.encode!(Usergroup.all(id)))
+  end
+  post "/usergroups" do
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  patch "/usergroups/:id" do
+    Usergroup.update(conn, id, conn.body_params) #add update in Usergroups model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
+  delete "/usergroups/:id" do
+    Usergroup.destroy(conn, id) #fix destroy in USergroups model
+    put_resp_content_type(conn, "application/json")
+    |> send_resp(200, '{"status":"OK"}'))
+  end
 
-  post "/groups/subscribe", do: GroupController.subscribe(conn, conn.body_params)
-  post "/groups/unsubscribe/:id", do: GroupController.unsubscribe(conn, id)
-  
-  get "/register", do: UserController.register(conn)
-  post "/register", do: UserController.register(conn, conn.body_params)
 
-  get "/", do: UserController.login(conn)
-  post "/", do: UserController.login(conn, conn.body_params)
-
-
-  post "/users/login",     do: UserController.login(conn, conn.body_params)
-  post "/users/logout",    do: UserController.logout(conn)
 
   match _ do
     send_resp(conn, 404, "oops")

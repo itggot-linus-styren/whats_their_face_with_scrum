@@ -1,5 +1,0 @@
-<h3>Write  a tip for the person you selected!</h3>
-<form method="post" action="/groups/tip/<%= person_id %>">
-    <input type="text" name="person_tip">
-    <input type="submit" value="Submit tip">
-</form>

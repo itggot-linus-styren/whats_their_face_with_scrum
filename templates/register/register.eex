@@ -1,7 +1,0 @@
-<h3> Register here</h3>
-<form method="POST" action="/register">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password1" placeholder="Password">
-    <input type="password" name="password2" placeholder="Password Confirm">
-    <input type="submit" value="register">
-</form>

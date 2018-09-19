@@ -1,5 +1,0 @@
-<a href="/groups">Go back to groups</a>
-
-<slideshow-component
-    v-bind:people='<%= people_json %>'
-></slideshow-component>

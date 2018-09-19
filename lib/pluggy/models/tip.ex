@@ -6,7 +6,13 @@ defmodule Pluggy.Tip do
     
     def create(person_id, params) do
         Postgrex.query!(DB, "INSERT INTO tips(tip, person_id) VALUES ($1, $2)", [params["person_tip"], atoi(person_id)], [pool: DBConnection.Poolboy])
-    end
+	end
+	
+	def all() do
+		Postgrex.query!(DB, "SELECT * FROM tips", [],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+	end
 
 
 	def all(person_id) do

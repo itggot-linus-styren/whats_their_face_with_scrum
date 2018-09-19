@@ -9,6 +9,12 @@ defmodule Pluggy.Usergroup do
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
     end
+
+    def all(id) do
+		Postgrex.query!(DB, "SELECT * FROM user_groups", [atoi(id)],
+            pool: DBConnection.Poolboy
+        ).rows |> to_struct_list
+    end
     
     def all_with_user(user) do
 		Postgrex.query!(DB, "SELECT * FROM user_groups WHERE user_id = $1", [user.id],
