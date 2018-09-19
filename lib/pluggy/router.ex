@@ -70,7 +70,8 @@ defmodule Pluggy.Router do
     |> send_resp(200, '{"status":"OK"}'))
   end
   patch "/persons/:id" do
-    Person.update(conn, id, conn.body_params) #add update in person model
+    Person.pic(conn, id, params)
+    Person.name(conn, id, params)
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
@@ -93,7 +94,7 @@ defmodule Pluggy.Router do
     |> send_resp(200, '{"status":"OK"}'))
   end
   patch "/tips/:id" do
-    Tip.update(conn, id, conn.body_params) #add update in tip model
+    Tip.update(conn, id, conn.body_params) 
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
@@ -116,12 +117,12 @@ defmodule Pluggy.Router do
     |> send_resp(200, '{"status":"OK"}'))
   end
   patch "/users/:id" do
-    User.update(conn, id, conn.body_params) #add update in User model
+    User.update(conn, id, conn.body_params) 
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
   delete "/users/:id" do
-    User.destroy(conn, id) #add destroy in USer model
+    User.delete(conn, id) 
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
@@ -139,12 +140,13 @@ defmodule Pluggy.Router do
     |> send_resp(200, '{"status":"OK"}'))
   end
   patch "/usergroups/:id" do
-    Usergroup.update(conn, id, conn.body_params) #add update in Usergroups model
+    Usergroup.update(conn, id, conn.body_params)
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end
   delete "/usergroups/:id" do
-    Usergroup.destroy(conn, id) #fix destroy in USergroups model
+    Usergroup.delete(conn ,id)
+    Usergroup.delete_with_group(conn, id)
     put_resp_content_type(conn, "application/json")
     |> send_resp(200, '{"status":"OK"}'))
   end

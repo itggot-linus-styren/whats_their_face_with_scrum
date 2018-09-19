@@ -24,6 +24,10 @@ defmodule Pluggy.Tip do
 		Postgrex.query!(DB, "DELETE FROM tips WHERE id = $1", [atoi(tip_id)], [pool: DBConnection.Poolboy])	
 	end
 
+	def update(conn, id, params) do
+		Postgrex.query!(DB, "UPDATE tips SET tip = $2 WHERE id = $1", [atoi(tip_id), params["person_tip"]], [pool: DBConnection.Poolboy])
+	end
+
     
     defp atoi(str), do: String.to_integer(str)
 

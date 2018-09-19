@@ -13,6 +13,16 @@ defmodule Pluggy.User do
 		Postgrex.query!(DB, "SELECT * FROM users WHERE id = $1", [atoi(id)],
             pool: DBConnection.Poolboy
         ).rows |> to_struct_list
+	end
+	
+	def update(conn, id, params) do
+		Postgrex.query!(DB, "UPDATE users SET username = $2 WHERE id = $1", [atoi(tip_id), params["username"]], [pool: DBConnection.Poolboy])
+	end
+
+	def delete(id) do
+        Postgrex.query!(DB, "DELETE FROM users WHERE id = $1", [atoi(id)],
+            pool: DBConnection.Poolboy)
+        :ok
     end
 
 
