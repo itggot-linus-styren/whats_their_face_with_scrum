@@ -25,3 +25,5 @@ pluggy-*.tar
 priv/static/uploads/
 
 mix.lock
+
+node_modules/
