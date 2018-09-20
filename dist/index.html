@@ -9,15 +9,41 @@
 	<link rel="stylesheet" type="text/css" href="/pluggy.css">
 </head>
 <body>
-    <h1 class="info"></h1> <!-- <%= Plug.Conn.get_session(conn, :info) %> move to server, request on page load -->
-    <h3>Login here</h3>
-    <form>
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" id="login-btn">
-    </form>
+    <h1>Group.index (/groups)</h1>
+
+    <h2>Owned groups</h2>
+    <table class="owned_groups">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody> <!-- append rows with javascript -->
+    </tbody>
+    </table>
+
     <br>
-    <a href="/register.html">Dont have an account? CLICK HERE</a>
+    <br>
+
+    <h2>Group subscriptions</h2>
+    <table class="subscriptions">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody> <!-- append rows with javascript -->
+    </tbody>
+    </table>
+
+    <br>
+    <br>
+    <a href="new_group.html">Add new group</a>
+    <a href="subscribe.html">Subscribe to group</a>
 </body>
 <script src="main.js"></script>
 </html>
